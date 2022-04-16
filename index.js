@@ -20,9 +20,15 @@ try{
 
 }
 
+// Parse JSON bodies for this app. Make sure you put
+// `app.use(express.json())` **before** your route handlers!
+app.use(express.json());
+
+//support parsing of application/x-www-form-urlencoded post data
+app.use(express.urlencoded({extended: true}));
+
 //Route API
 app.use('/api/category/',CategoryRoutes);
-
 
 //server running
 app.listen(port,()=>{

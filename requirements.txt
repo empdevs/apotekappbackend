@@ -1,5 +1,6 @@
 express 
 cors
 mysql
-mysql2
 sequelize
+nodemon
+body-parser

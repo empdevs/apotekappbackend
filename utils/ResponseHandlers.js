@@ -7,3 +7,4 @@ export const responseData = function (response, statusCode, values) {
     response.status(statusCode).json(data);
     response.end();
 };
+
