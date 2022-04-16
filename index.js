@@ -8,15 +8,13 @@ const port = process.env.PORT || 5000;
 //check connection database
 try{
     
-    database.connect(()=>{
+    database.authenticate();
 
-        console.log("Database connected...");
-
-    });
+    console.log("Database connected...");
 
 }catch(error){
 
-        console.log("Database not connected...", error);
+    console.log("Database not connected...", error);
 
 }
 

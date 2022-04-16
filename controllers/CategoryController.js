@@ -4,9 +4,45 @@ import { v4 as uuidv4 } from 'uuid';
 
 export async function getAllCategories(req,res){
 
-    let sql = `SELECT * FROM categories WHERE deleted_at IS NULL AND deleted_by IS NULL`;
+    try{
 
-    getAllData(res, sql);
+        let data = await getAllData.findAll({
+            where : {
+                "deleted_by" : null,
+                "deleted_at" : null
+            }
+        });
+
+        let responseData = {
+        
+            "success" : true,
+            "status" : res.statusCode,
+            "data" : data
+
+        }
+
+        console.log("Success get data...");
+
+        return res.status(res.statusCode).json(responseData);
+
+    }catch(error){
+
+        console.log("Failed get data...");
+        
+        console.log(error);
+
+        let responseData = {
+        
+            "success" : false,
+            "status" : 401,
+            "message" : "Failed get data",
+            "data" : {}
+
+        }
+
+        return res.status(401).json(responseData);
+
+    }
 
 }
 

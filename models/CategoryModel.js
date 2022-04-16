@@ -1,36 +1,55 @@
 import database from "../config/Database.js";
-// import { responseData } from "../utils/ResponseHandlers.js";
+import { Sequelize } from "sequelize";
+
+const { DataTypes } = Sequelize
 
 //read
-export const getAllData = (response, statement) => {
+export const getAllData = database.define("categories", {
 
-    database.query(statement, (err, rows, field)=>{
+    "id" : {
 
-        // console.log(err);
+        type : DataTypes.STRING,
+        primaryKey: true,
+        allowNull : false
 
-        if(err){
+    },
+    "name" : {
 
-            console.log(err);
+        type : DataTypes.STRING
 
-            console.log("Failed get data category...");
+    },
+    "created_at" : {
 
-            return response.status(401).json(err);
+        type : DataTypes.DATE
+    },
+    "created_by" : {
 
-        }
+        type : DataTypes.STRING
+    },
+    "updated_at" : {
 
-            let data = {
-                "success": true,
-                "status": response.statusCode,
-                "data": rows,
-            };
+        type : DataTypes.DATE
+    },
+    "updated_by" : {
 
-            return response.status(response.statusCode).json(data);
+        type : DataTypes.STRING
+    },
+    "deleted_at" : {
 
-        // responseData(response, 200, rows);
+        type : DataTypes.DATE
 
-    });
+    },
+    "deleted_by" : {
 
-};
+        type : DataTypes.STRING
+
+    }
+
+},{
+    
+    timestamps: false,
+    freezeTableName : true
+});
 
 export const getDataById = (response, statement) => {
 
