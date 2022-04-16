@@ -2,7 +2,7 @@ import database from "../config/Database.js";
 // import { responseData } from "../utils/ResponseHandlers.js";
 
 //read
-export const getAllData = (response, statement) => {
+export const getData = (response, statement) => {
 
     database.query(statement, (err, rows, field)=>{
 
