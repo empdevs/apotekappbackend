@@ -1,4 +1,4 @@
-import { getAllData, createData, updateData, deleteData } from "../models/CategoryModel.js";
+import { getAllData, createData, updateData, deleteData, getDataById } from "../models/CategoryModel.js";
 import moment from "moment";
 import { v4 as uuidv4 } from 'uuid'; 
 
@@ -7,6 +7,16 @@ export async function getAllCategories(req,res){
     let sql = `SELECT * FROM categories WHERE deleted_at IS NULL AND deleted_by IS NULL`;
 
     getAllData(res, sql);
+
+}
+
+export async function getCategoryById(req,res){
+
+    let id = req.params.id;
+
+    let sql = `SELECT * FROM categories WHERE id='${id}'`;
+
+    getDataById(res, sql);
 
 }
 
