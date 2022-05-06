@@ -10,26 +10,36 @@ const database = new Sequelize(process.env.DB_NAME, process.env.DB_USER, '', {
 
 });
 
+//connect for cerate database
 
-//create database
+// const database = mysql.createConnection({
+//         host : process.env.DB_HOST || "localhost",
+//         user : process.env.DB_USER || "root",
+//         password : "",
+//         database : process.env.DB_NAME || "apotek"
+// });
+
+
+// //create database
 // database.connect(function(err){
 
 
 //     database.query("CREATE DATABASE apotek", function(err, result){
 
-//         try{
+       
+//         if(!err){
 
-//             console.log("Database success created");
+//                 console.log("Database success created");
 
-//         }catch{
+//         }else{
 
-//             console.log(`Database failed created ${err}`);
-
+//                 console.log(`Database failed created ${err}`);
 //         }
 
 //     });
 
 
 // });
+
 
 export default database;
