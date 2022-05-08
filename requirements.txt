@@ -1,6 +1,0 @@
-express 
-cors
-mysql
-sequelize
-nodemon
-body-parser
