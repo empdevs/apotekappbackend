@@ -25,6 +25,13 @@ app.use(express.json());
 //support parsing of application/x-www-form-urlencoded post data
 app.use(express.urlencoded({extended: true}));
 
+app.use('/api/test/', (req, res)=>{
+
+    res.json({
+        "message" : "success"
+    })
+
+}); 
 //Route API
 app.use('/api/category/',CategoryRoutes);
 
