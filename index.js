@@ -6,17 +6,17 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 //check connection database
-try{
+// try{
     
-    database.authenticate();
+//     database.authenticate();
 
-    console.log("Database connected...");
+//     console.log("Database connected...");
 
-}catch(error){
+// }catch(error){
 
-    console.log("Database not connected...", error);
+//     console.log("Database not connected...", error);
 
-}
+// }
 
 // Parse JSON bodies for this app. Make sure you put
 // `app.use(express.json())` **before** your route handlers!
@@ -26,7 +26,14 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 //Route API
-app.use('/api/category/',CategoryRoutes);
+// app.use('/api/category/',CategoryRoutes);
+app.use('/api/category/',(req, res)=>{
+
+    res.send({
+        "message" : "success"
+    })
+
+});
 
 //server running
 app.listen(port,()=>{
