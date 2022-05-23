@@ -30,7 +30,7 @@ app.use(express.urlencoded({extended: true}));
 app.use('/api/test/', (req, res)=>{
 
     res.json({
-        "message" : "success"
+        "message" : "bababa"
     })
 
 }); 
