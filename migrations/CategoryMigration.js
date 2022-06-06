@@ -9,6 +9,7 @@ database.connect(function(error){
 
         let sql = `CREATE TABLE categories ( 
                         id VARCHAR(36), 
+                        number int NOT NULL AUTO_INCREMENT UNIQUE,
                         name VARCHAR(255) NOT NULL UNIQUE, 
                         created_at DATETIME, 
                         created_by VARCHAR(255), 
