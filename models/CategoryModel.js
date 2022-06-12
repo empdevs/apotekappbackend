@@ -1,235 +1,234 @@
 import database from "../config/Database.js";
 // import { responseData } from "../utils/ResponseHandlers.js";
 
-//read
-export const getData = (response, statement) => {
+export function getData(response, statement){
 
-    database.query(statement, (err, rows, field)=>{
+        database.query(statement, (err, rows, field)=>{
 
-        // console.log(err);
+            // console.log(field);
 
-        if(err){
+            if(err){
 
-            console.log(err);
+                console.log(err);
 
-            console.log("Failed get data category...");
+                console.log("Failed get data category...");
 
-            return response.status(401).json(err);
+                return response.status(401).json(err);
 
-        }
-
-            let data = {
-                "success": true,
-                "status": response.statusCode,
-                "data": rows,
-            };
-
-            return response.status(response.statusCode).json(data);
-
-        // responseData(response, 200, rows);
-
-    });
-
-};
-
-export const getDataById = (response, statement) => {
-
-    database.query(statement, (err, rows, field)=>{
-
-
-        if(err){
-
-            console.log(err);
-
-            console.log("Failed get data category ....");
-
-            return response.status(401).json(err);
-
-        }
-        
-        // if data not available
-        if(rows.length < 1){
-
-            let data = {
-
-                "success" : false,
-                "status" : 401,
-                "data" : {}
-    
             }
-    
-            // console.log(data);
-    
-            return response.status(401).json(data);
 
-        }else{
+                let data = {
+                    "success": true,
+                    "status": response.statusCode,
+                    "data": rows,
+                };
 
-            // console.log(rows);
-        
-            let data = {
-    
-                "success" : true,
-                "status" : response.statusCode,
-                "data" : rows[0]
-    
+                return response.status(response.statusCode).json(data);
+
+            // responseData(response, 200, rows);
+
+        });
+
+    };
+
+export function getDataById(response, statement){
+
+        database.query(statement, (err, rows, field)=>{
+
+
+            if(err){
+
+                console.log(err);
+
+                console.log("Failed get data category ....");
+
+                return response.status(401).json(err);
+
             }
-    
-            // console.log(data);
-    
-            return response.status(response.statusCode).json(data);
-
-        }
-       
-
-    });
-
-};
-
-//create
-export const createData = (response, statement, data) => {
-
-    // console.log(statement); //this is query sql
-
-    database.query(statement, (err, rows, field) => {
-
-
-        if(err){
-
-            console.log(err);
-
-            let error = JSON.stringify(err);
-
-            let errorToJson = JSON.parse(error);
             
-            console.log("Failed create data category...");
+            // if data not available
+            if(rows.length < 1){
 
-            // console.log(errorToJson);
+                let data = {
 
-            let errorObj = {
+                    "success" : false,
+                    "status" : 401,
+                    "data" : {}
+        
+                }
+        
+                // console.log(data);
+        
+                return response.status(401).json(data);
 
-                "error" : true,
-                "status" : 401,
-                "message" : errorToJson.sqlMessage 
+            }else{
+
+                // console.log(rows);
+            
+                let data = {
+        
+                    "success" : true,
+                    "status" : response.statusCode,
+                    "data" : rows[0]
+        
+                }
+        
+                // console.log(data);
+        
+                return response.status(response.statusCode).json(data);
+
+            }
+        
+
+        });
+
+    };
+
+    //create
+export function createData(response, statement, data){
+
+        // console.log(statement); //this is query sql
+
+        database.query(statement, (err, rows, field) => {
+
+
+            if(err){
+
+                console.log(err);
+
+                let error = JSON.stringify(err);
+
+                let errorToJson = JSON.parse(error);
+                
+                console.log("Failed create data category...");
+
+                // console.log(errorToJson);
+
+                let errorObj = {
+
+                    "error" : true,
+                    "status" : 401,
+                    "message" : errorToJson.sqlMessage 
+
+                }
+
+                return response.status(400).json(errorObj);
 
             }
 
-            return response.status(400).json(errorObj);
+                // console.log(response);
 
-        }
+                console.log("Success create data category...");
+
+                let dataResponse = {
+
+                    "success": true,
+                    "status": response.statusCode,
+                    "message": "Success insert data",
+                    "data": data 
+
+                }
+
+                return response.status(response.statusCode).json(dataResponse);
+
+        });
+
+    }; 
+
+    //update
+export function updateData(response, statement, data){
+
+
+        database.query(statement, (err, rows, field)=>{
+            
+        
+            if(err){
+
+                console.log(err);
+
+                let error = JSON.stringify(err);
+
+                let errorToJson = JSON.parse(error);
+
+                console.log("Failed update data category...");
+
+                // console.log(errorToJson);
+
+                let errorObj = {
+
+                    "error" : true,
+                    "status" : 401,
+                    "message" : errorToJson.sqlMessage 
+
+                }
+
+                return response.status(401).json(errorObj);
+
+            }
 
             // console.log(response);
 
-            console.log("Success create data category...");
+            console.log("Success update data category...");
 
             let dataResponse = {
 
                 "success": true,
                 "status": response.statusCode,
-                "message": "Success insert data",
+                "message": "Success udpate data",
                 "data": data 
 
             }
 
             return response.status(response.statusCode).json(dataResponse);
 
-    });
+        });
 
-}; 
+    }
 
-//update
-export const updateData = (response, statement, data)=>{
-
-
-    database.query(statement, (err, rows, field)=>{
-        
-       
-        if(err){
-
-            console.log(err);
-
-            let error = JSON.stringify(err);
-
-            let errorToJson = JSON.parse(error);
-
-            console.log("Failed update data category...");
-
-            // console.log(errorToJson);
-
-            let errorObj = {
-
-                "error" : true,
-                "status" : 401,
-                "message" : errorToJson.sqlMessage 
-
-            }
-
-            return response.status(401).json(errorObj);
-
-        }
-
-         // console.log(response);
-
-         console.log("Success update data category...");
-
-         let dataResponse = {
-
-             "success": true,
-             "status": response.statusCode,
-             "message": "Success udpate data",
-             "data": data 
-
-         }
-
-         return response.status(response.statusCode).json(dataResponse);
-
-    });
-
-}
-
-// delete
-export const deleteData = (response, statement)=>{
+    // delete
+export function deleteData(response, statement){
 
 
-    database.query(statement, (err, rows, field)=>{
-        
+        database.query(statement, (err, rows, field)=>{
+            
 
-        if(err){
+            if(err){
 
-            console.log(err);
+                console.log(err);
 
-            let error = JSON.stringify(err);
+                let error = JSON.stringify(err);
 
-            let errorToJson = JSON.parse(error);
+                let errorToJson = JSON.parse(error);
 
-            console.log("Failed delete data category...");
+                console.log("Failed delete data category...");
 
-            // console.log(errorToJson);
+                // console.log(errorToJson);
 
-            let errorObj = {
+                let errorObj = {
 
-                "error" : true,
-                "status" : 401,
-                "message" : errorToJson.sqlMessage 
+                    "error" : true,
+                    "status" : 401,
+                    "message" : errorToJson.sqlMessage 
+
+                }
+
+                return response.status(401).json(errorObj);
 
             }
 
-            return response.status(401).json(errorObj);
+            // console.log(response);
 
-        }
+            console.log("Success delete data category...");
 
-         // console.log(response);
+            let dataResponse = {
 
-         console.log("Success delete data category...");
+                "success": true,
+                "status": response.statusCode,
+                "message": "Success delete data",
+            }
 
-         let dataResponse = {
+            return response.status(response.statusCode).json(dataResponse);
 
-             "success": true,
-             "status": response.statusCode,
-             "message": "Success delete data",
-         }
+        });
 
-         return response.status(response.statusCode).json(dataResponse);
-
-    });
-
-}
+    }
