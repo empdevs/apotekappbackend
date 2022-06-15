@@ -3,6 +3,7 @@ import database from "../config/Database.js";
 
 export function getData(response, statement){
 
+        console.log(database);
         database.query(statement, (err, rows, field)=>{
 
             // console.log(field);
@@ -15,7 +16,9 @@ export function getData(response, statement){
 
                 return response.status(401).json(err);
 
-            }
+            }else{
+
+            
 
                 let data = {
                     "success": true,
@@ -25,7 +28,7 @@ export function getData(response, statement){
 
                 return response.status(response.statusCode).json(data);
 
-            // responseData(response, 200, rows);
+            }
 
         });
 
@@ -44,38 +47,40 @@ export function getDataById(response, statement){
 
                 return response.status(401).json(err);
 
-            }
-            
-            // if data not available
-            if(rows.length < 1){
-
-                let data = {
-
-                    "success" : false,
-                    "status" : 401,
-                    "data" : {}
-        
-                }
-        
-                // console.log(data);
-        
-                return response.status(401).json(data);
-
             }else{
+                
+                // if data not available
+                if(rows.length < 1){
 
-                // console.log(rows);
+                    let data = {
+
+                        "success" : false,
+                        "status" : 401,
+                        "data" : {}
             
-                let data = {
-        
-                    "success" : true,
-                    "status" : response.statusCode,
-                    "data" : rows[0]
-        
+                    }
+            
+                    // console.log(data);
+            
+                    return response.status(401).json(data);
+
+                }else{
+
+                    // console.log(rows);
+                
+                    let data = {
+            
+                        "success" : true,
+                        "status" : response.statusCode,
+                        "data" : rows[0]
+            
+                    }
+            
+                    // console.log(data);
+            
+                    return response.status(response.statusCode).json(data);
+
                 }
-        
-                // console.log(data);
-        
-                return response.status(response.statusCode).json(data);
 
             }
         
@@ -114,7 +119,7 @@ export function createData(response, statement, data){
 
                 return response.status(400).json(errorObj);
 
-            }
+            }else{
 
                 // console.log(response);
 
@@ -130,6 +135,8 @@ export function createData(response, statement, data){
                 }
 
                 return response.status(response.statusCode).json(dataResponse);
+
+            }
 
         });
 
@@ -164,22 +171,24 @@ export function updateData(response, statement, data){
 
                 return response.status(401).json(errorObj);
 
+            }else{
+
+                // console.log(response);
+
+                console.log("Success update data category...");
+
+                let dataResponse = {
+
+                    "success": true,
+                    "status": response.statusCode,
+                    "message": "Success udpate data",
+                    "data": data 
+
+                }
+
+                return response.status(response.statusCode).json(dataResponse);
+
             }
-
-            // console.log(response);
-
-            console.log("Success update data category...");
-
-            let dataResponse = {
-
-                "success": true,
-                "status": response.statusCode,
-                "message": "Success udpate data",
-                "data": data 
-
-            }
-
-            return response.status(response.statusCode).json(dataResponse);
 
         });
 
@@ -214,20 +223,22 @@ export function deleteData(response, statement){
 
                 return response.status(401).json(errorObj);
 
+            }else{
+
+                // console.log(response);
+
+                console.log("Success delete data category...");
+
+                let dataResponse = {
+
+                    "success": true,
+                    "status": response.statusCode,
+                    "message": "Success delete data",
+                }
+
+                return response.status(response.statusCode).json(dataResponse);
+
             }
-
-            // console.log(response);
-
-            console.log("Success delete data category...");
-
-            let dataResponse = {
-
-                "success": true,
-                "status": response.statusCode,
-                "message": "Success delete data",
-            }
-
-            return response.status(response.statusCode).json(dataResponse);
 
         });
 

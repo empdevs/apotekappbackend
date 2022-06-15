@@ -1,6 +1,7 @@
 import express from "express";
 import database from "./config/Database.js";
 import CategoryRoutes from './routes/CategoryRoutes.js'; 
+import DrugRoutes from './routes/DrugRoutes.js';
 import cors from 'cors';
 
 const app = express();
@@ -34,6 +35,7 @@ app.use(express.urlencoded({extended: true}));
 
 //Route API
 app.use('/api/category/',CategoryRoutes);
+app.use('/api/drug/',DrugRoutes);
 
 //server running
 app.listen(port,()=>{
