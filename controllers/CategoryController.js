@@ -1,6 +1,5 @@
 import moment from "moment";
 import { v4 as uuidv4 } from 'uuid'; 
-// import { getData, getDataById, createData, updateData, deleteData } from '../models/CategoryModel.js'; 
 import CategoryModel from "../models/CategoryModel.js";
 import Helper from "../utils/Helper.js";
 
