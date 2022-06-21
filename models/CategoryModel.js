@@ -1,12 +1,14 @@
 import database from "../config/Database.js";
-// import { responseData } from "../utils/ResponseHandlers.js";
+import Helper from "../utils/Helper.js";
+import ResponseDataModel from "../utils/ResponseDataModel.js";
 
-export function getData(response, statement){
+const CategoryModel = {}
 
-        console.log(database);
-        database.query(statement, (err, rows, field)=>{
+    CategoryModel.getData = (response) => {
 
-            // console.log(field);
+        let sql = `SELECT * FROM categories WHERE deleted_at IS NULL AND deleted_by IS NULL ORDER BY NUMBER ASC`;
+
+        database.query(sql, (err, rows, field)=>{
 
             if(err){
 
@@ -14,19 +16,11 @@ export function getData(response, statement){
 
                 console.log("Failed get data category...");
 
-                return response.status(401).json(err);
+                Helper.responseError(response, true, 401, "Failed get data category");
 
             }else{
 
-            
-
-                let data = {
-                    "success": true,
-                    "status": response.statusCode,
-                    "data": rows,
-                };
-
-                return response.status(response.statusCode).json(data);
+                Helper.responseData(response, true, response.statusCode, "Success get data", rows);
 
             }
 
@@ -34,9 +28,11 @@ export function getData(response, statement){
 
     };
 
-export function getDataById(response, statement){
+    CategoryModel.getDataById = (response, id) => {
 
-        database.query(statement, (err, rows, field)=>{
+        let sql = `SELECT * FROM categories WHERE id='${id}' AND deleted_at IS NULL AND deleted_by IS NULL`;
+
+        database.query(sql, (err, rows, field)=>{
 
 
             if(err){
@@ -45,40 +41,18 @@ export function getDataById(response, statement){
 
                 console.log("Failed get data category ....");
 
-                return response.status(401).json(err);
+                Helper.responseError(response, true, 401, err)
 
             }else{
                 
                 // if data not available
                 if(rows.length < 1){
-
-                    let data = {
-
-                        "success" : false,
-                        "status" : 401,
-                        "data" : {}
             
-                    }
-            
-                    // console.log(data);
-            
-                    return response.status(401).json(data);
+                    Helper.responseData(response, true, 201, "Data not available", {});
 
                 }else{
 
-                    // console.log(rows);
-                
-                    let data = {
-            
-                        "success" : true,
-                        "status" : response.statusCode,
-                        "data" : rows[0]
-            
-                    }
-            
-                    // console.log(data);
-            
-                    return response.status(response.statusCode).json(data);
+                    Helper.responseData(response, true, 201, "Success get data by id", rows[0]);
 
                 }
 
@@ -90,11 +64,11 @@ export function getDataById(response, statement){
     };
 
     //create
-export function createData(response, statement, data){
+    CategoryModel.createData = (response,data) => {
 
-        // console.log(statement); //this is query sql
+        let sql = `INSERT INTO categories VALUES ('${data.id}','${''}','${data.name}','${data.created_at}', '${data.created_by}', '${data.updated_at}', '${data.updated_by}', ${null}, ${null})`;
 
-        database.query(statement, (err, rows, field) => {
+        database.query(sql, (err, rows, field) => {
 
 
             if(err){
@@ -107,34 +81,18 @@ export function createData(response, statement, data){
                 
                 console.log("Failed create data category...");
 
-                // console.log(errorToJson);
-
-                let errorObj = {
-
-                    "error" : true,
-                    "status" : 401,
-                    "message" : errorToJson.sqlMessage 
-
-                }
-
-                return response.status(400).json(errorObj);
+                Helper.responseError(response, true, 401, errorToJson.sqlMessage);
+          
 
             }else{
 
                 // console.log(response);
 
                 console.log("Success create data category...");
+    
+                let dataModel = ResponseDataModel.createCategory(data);
 
-                let dataResponse = {
-
-                    "success": true,
-                    "status": response.statusCode,
-                    "message": "Success insert data",
-                    "data": data 
-
-                }
-
-                return response.status(response.statusCode).json(dataResponse);
+                Helper.responseData(response, true, response.statusCode, "Success insert data", dataModel);
 
             }
 
@@ -143,10 +101,11 @@ export function createData(response, statement, data){
     }; 
 
     //update
-export function updateData(response, statement, data){
+    CategoryModel.updateData = (response, data) => {
 
+        let sql = `UPDATE categories SET name='${data.name}',updated_at='${data.updated_at}', updated_by='${data.updated_by}' WHERE id = '${data.id}' `;
 
-        database.query(statement, (err, rows, field)=>{
+        database.query(sql, (err, rows, field)=>{
             
         
             if(err){
@@ -159,17 +118,7 @@ export function updateData(response, statement, data){
 
                 console.log("Failed update data category...");
 
-                // console.log(errorToJson);
-
-                let errorObj = {
-
-                    "error" : true,
-                    "status" : 401,
-                    "message" : errorToJson.sqlMessage 
-
-                }
-
-                return response.status(401).json(errorObj);
+                Helper.responseError(response, true, 401, errorToJson.sqlMessage);
 
             }else{
 
@@ -177,17 +126,7 @@ export function updateData(response, statement, data){
 
                 console.log("Success update data category...");
 
-                let dataResponse = {
-
-                    "success": true,
-                    "status": response.statusCode,
-                    "message": "Success udpate data",
-                    "data": data 
-
-                }
-
-                return response.status(response.statusCode).json(dataResponse);
-
+                Helper.responseData(response, true, response.statusCode, "Success update data", {});
             }
 
         });
@@ -195,10 +134,11 @@ export function updateData(response, statement, data){
     }
 
     // delete
-export function deleteData(response, statement){
+    CategoryModel.deleteData = (response, data) => {
 
+        let sql = `UPDATE categories SET deleted_at='${data.deleted_at}', deleted_by='${data.deleted_by}' WHERE id = '${data.id}' `;
 
-        database.query(statement, (err, rows, field)=>{
+        database.query(sql, (err, rows, field)=>{
             
 
             if(err){
@@ -211,17 +151,8 @@ export function deleteData(response, statement){
 
                 console.log("Failed delete data category...");
 
-                // console.log(errorToJson);
-
-                let errorObj = {
-
-                    "error" : true,
-                    "status" : 401,
-                    "message" : errorToJson.sqlMessage 
-
-                }
-
-                return response.status(401).json(errorObj);
+                Helper.responseError(response, true, 401, errorToJson.sqlMessage);
+        
 
             }else{
 
@@ -229,17 +160,14 @@ export function deleteData(response, statement){
 
                 console.log("Success delete data category...");
 
-                let dataResponse = {
-
-                    "success": true,
-                    "status": response.statusCode,
-                    "message": "Success delete data",
-                }
-
-                return response.status(response.statusCode).json(dataResponse);
+                Helper.responseData(response, true, response.statusCode, "Success delete data", {});
 
             }
 
         });
 
     }
+
+
+
+export default CategoryModel
