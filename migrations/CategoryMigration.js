@@ -3,7 +3,7 @@ import database from "../config/Database.js";
 //create table category
 database.connect(function(error){
 
-    // console.log(error);
+    console.log(error);
 
     if(error){
 
@@ -15,14 +15,14 @@ database.connect(function(error){
 
         let sql = `CREATE TABLE categories ( 
             id VARCHAR(36), 
-            number int NOT NULL AUTO_INCREMENT UNIQUE,
-            name VARCHAR(255) NOT NULL UNIQUE, 
-            created_at DATETIME, 
-            created_by VARCHAR(255), 
-            updated_at DATETIME,
-            updated_by VARCHAR(255), 
-            deleted_at DATETIME, 
-            deleted_by VARCHAR(255), 
+            category_number int NOT NULL AUTO_INCREMENT UNIQUE,
+            category_name VARCHAR(255) NOT NULL UNIQUE, 
+            category_created_at DATETIME, 
+            category_created_by VARCHAR(255), 
+            category_updated_at DATETIME,
+            category_updated_by VARCHAR(255), 
+            category_deleted_at DATETIME, 
+            category_deleted_by VARCHAR(255), 
             PRIMARY KEY (id)
         )`;
 

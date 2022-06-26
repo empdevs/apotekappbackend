@@ -21,9 +21,9 @@ import Helper from "../utils/Helper.js";
 
         // data post
         let id = uuidv4();
-        let name = req.body.name;
-        let createdBy = req.body.created_by;
-        let updatedBy = req.body.updated_by;
+        let name = req.body.category_name;
+        let createdBy = req.body.category_created_by;
+        let updatedBy = req.body.category_updated_by;
         let timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
     
 
@@ -36,11 +36,11 @@ import Helper from "../utils/Helper.js";
             let data = {
 
                 "id" : id,
-                "name" : name,
-                "created_at" : timeNow,
-                "created_by" : createdBy,
-                "updated_at" : timeNow,
-                "updated_by" : updatedBy,
+                "category_name" : name,
+                "category_created_at" : timeNow,
+                "category_created_by" : createdBy,
+                "category_updated_at" : timeNow,
+                "category_updated_by" : updatedBy,
     
             }
             //model create
@@ -55,8 +55,8 @@ import Helper from "../utils/Helper.js";
     export function updateCategory(req, res){
 
         let id = req.params.id;
-        let name = req.body.name;
-        let user = req.body.updated_by;
+        let name = req.body.category_name;
+        let user = req.body.category_updated_by;
         let timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
 
         if(!name || name === "" || name.match(/^ *$/) !== null){
@@ -70,9 +70,9 @@ import Helper from "../utils/Helper.js";
             let data = {
 
                 "id" : id,
-                "name" : name,
-                "updated_at" : timeNow,
-                "updated_by" : user,
+                "category_name" : name,
+                "category_updated_at" : timeNow,
+                "category_updated_by" : user,
             }
 
             CategoryModel.updateData(res, data);
@@ -85,13 +85,13 @@ import Helper from "../utils/Helper.js";
     export function deleteCategory(req, res){
 
         let id = req.params.id;
-        let user = req.body.deleted_by;
+        let user = req.body.category_deleted_by;
         let timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
 
         let data = {
             "id" : id,
-            "deleted_by" : user,
-            "deleted_at" : timeNow 
+            "category_deleted_by" : user,
+            "category_deleted_at" : timeNow 
         }
         
         CategoryModel.deleteData(res, data);

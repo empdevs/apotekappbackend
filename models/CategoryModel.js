@@ -2,17 +2,17 @@ import database from "../config/Database.js";
 import Helper from "../utils/Helper.js";
 import ResponseDataModel from "../utils/ResponseDataModel.js";
 
-const CategoryModel = {}
+const CategoryModel = {};
 
     CategoryModel.getData = (response) => {
 
-        let sql = `SELECT * FROM categories WHERE deleted_at IS NULL AND deleted_by IS NULL ORDER BY NUMBER ASC`;
+        let sql = `SELECT * FROM categories WHERE category_deleted_at IS NULL AND category_deleted_by IS NULL ORDER BY category_number ASC`;
 
-        database.query(sql, (err, rows, field)=>{
+        database.query(sql, function(error, result, field){
 
-            if(err){
+            if(error){
 
-                console.log(err);
+                console.log(error);
 
                 console.log("Failed get data category...");
 
@@ -20,7 +20,9 @@ const CategoryModel = {}
 
             }else{
 
-                Helper.responseData(response, true, response.statusCode, "Success get data", rows);
+                // console.log(result);
+
+                Helper.responseData(response, true, response.statusCode, "Success get data", result);
 
             }
 
@@ -30,29 +32,29 @@ const CategoryModel = {}
 
     CategoryModel.getDataById = (response, id) => {
 
-        let sql = `SELECT * FROM categories WHERE id='${id}' AND deleted_at IS NULL AND deleted_by IS NULL`;
+        let sql = `SELECT * FROM categories WHERE id='${id}' AND category_deleted_at IS NULL AND category_deleted_by IS NULL`;
 
-        database.query(sql, (err, rows, field)=>{
+        database.query(sql, function(error, result, field){
 
 
-            if(err){
+            if(error){
 
-                console.log(err);
+                console.log(error);
 
                 console.log("Failed get data category ....");
 
-                Helper.responseError(response, true, 401, err)
+                Helper.responseError(response, true, 401, error)
 
             }else{
                 
                 // if data not available
-                if(rows.length < 1){
+                if(result.length < 1){
             
                     Helper.responseData(response, true, 201, "Data not available", {});
 
                 }else{
 
-                    Helper.responseData(response, true, 201, "Success get data by id", rows[0]);
+                    Helper.responseData(response, true, 201, "Success get data by id", result[0]);
 
                 }
 
@@ -66,18 +68,18 @@ const CategoryModel = {}
     //create
     CategoryModel.createData = (response,data) => {
 
-        let sql = `INSERT INTO categories VALUES ('${data.id}','${''}','${data.name}','${data.created_at}', '${data.created_by}', '${data.updated_at}', '${data.updated_by}', ${null}, ${null})`;
+        let sql = `INSERT INTO categories VALUES ('${data.id}','${''}','${data.category_name}','${data.category_created_at}', '${data.category_created_by}', '${data.category_updated_at}', '${data.category_updated_by}', ${null}, ${null})`;
 
-        database.query(sql, (err, rows, field) => {
+        database.query(sql, function(error, result, field){
 
 
-            if(err){
+            if(error){
 
-                console.log(err);
+                console.log(error);
 
-                let error = JSON.stringify(err);
+                let errorQuery = JSON.stringify(error);
 
-                let errorToJson = JSON.parse(error);
+                let errorToJson = JSON.parse(errorQuery);
                 
                 console.log("Failed create data category...");
 
@@ -103,18 +105,18 @@ const CategoryModel = {}
     //update
     CategoryModel.updateData = (response, data) => {
 
-        let sql = `UPDATE categories SET name='${data.name}',updated_at='${data.updated_at}', updated_by='${data.updated_by}' WHERE id = '${data.id}' `;
+        let sql = `UPDATE categories SET category_name='${data.category_name}',category_updated_at='${data.category_updated_at}', category_updated_by='${data.category_updated_by}' WHERE id = '${data.id}' `;
 
-        database.query(sql, (err, rows, field)=>{
+        database.query(sql, function(error, result, field){
             
         
-            if(err){
+            if(error){
 
-                console.log(err);
+                console.log(error);
 
-                let error = JSON.stringify(err);
+                let errorQuery = JSON.stringify(error);
 
-                let errorToJson = JSON.parse(error);
+                let errorToJson = JSON.parse(errorQuery);
 
                 console.log("Failed update data category...");
 
@@ -136,18 +138,18 @@ const CategoryModel = {}
     // delete
     CategoryModel.deleteData = (response, data) => {
 
-        let sql = `UPDATE categories SET deleted_at='${data.deleted_at}', deleted_by='${data.deleted_by}' WHERE id = '${data.id}' `;
+        let sql = `UPDATE categories SET category_deleted_at='${data.category_deleted_at}', category_deleted_by='${data.category_deleted_by}' WHERE id = '${data.id}' `;
 
-        database.query(sql, (err, rows, field)=>{
+        database.query(sql, function(error, result, field){
             
 
-            if(err){
+            if(error){
 
-                console.log(err);
+                console.log(error);
 
-                let error = JSON.stringify(err);
+                let errorQuery = JSON.stringify(error);
 
-                let errorToJson = JSON.parse(error);
+                let errorToJson = JSON.parse(errorQuery);
 
                 console.log("Failed delete data category...");
 

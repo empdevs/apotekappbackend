@@ -5,13 +5,13 @@ export default class ResponseType {
         return {
 
             "id" : data.id,
-            "name" : data.name,
-            "created_at" : data.created_at,
-            "created_by" : data.created_by,
-            "updated_at" : data.updated_at,
-            "updated_by" : data.updated_by,
-            "deleted_at" : null,
-            "deleted_by" : null,
+            "category_name" : data.category_name,
+            "category_created_at" : data.category_created_at,
+            "category_created_by" : data.category_created_by,
+            "category_updated_at" : data.category_updated_at,
+            "category_updated_by" : data.category_updated_by,
+            "category_deleted_at" : null,
+            "category_deleted_by" : null,
 
         }
 
@@ -22,14 +22,55 @@ export default class ResponseType {
         return {
 
             "id" : data.id,
-            "name" : data.name,
-            "created_at" : data.created_at,
-            "created_by" : data.created_by,
-            "updated_at" : data.updated_at,
-            "updated_by" : data.updated_by,
-            "deleted_at" : null,
-            "deleted_by" : null,
+            "category_name" : data.category_name,
+            "category_created_at" : data.category_created_at,
+            "category_created_by" : data.category_created_by,
+            "category_updated_at" : data.category_updated_at,
+            "category_updated_by" : data.category_updated_by,
+            "category_deleted_at" : null,
+            "category_deleted_by" : null,
 
+        }
+
+    }
+
+    static createDrug(data){
+
+        return {
+
+            "id" : data.id,
+            "category_id" : data.category_id,
+            "drug_name" : data.drug_name,
+            "drug_stock" : data.drug_stock,
+            "drug_price" : data.drug_price,
+            "drug_benefit" : data.drug_benefit,
+            "drug_picture" : data.drug_picture,
+            "drug_created_at" : data.drug_created_at,
+            "drug_created_by" : data.drug_created_by,
+            "drug_updated_at" : data.drug_updated_at,
+            "drug_updated_at" : data.drug_updated_at,
+            "drug_deleted_at" : null,
+            "drug_deleted_by" : null,
+        }
+
+    }
+    static updateDrug(data){
+
+        return {
+
+            "id" : data.id,
+            "category_id" : data.category_id,
+            "drug_name" : data.drug_name,
+            "drug_stock" : data.drug_stock,
+            "drug_price" : data.drug_price,
+            "drug_benefit" : data.drug_benefit,
+            "drug_picture" : data.drug_picture,
+            "drug_created_at" : data.drug_created_at,
+            "drug_created_by" : data.drug_created_by,
+            "drug_updated_at" : data.drug_updated_at,
+            "drug_updated_at" : data.drug_updated_at,
+            "drug_deleted_at" : null,
+            "drug_deleted_by" : null,
         }
 
     }
