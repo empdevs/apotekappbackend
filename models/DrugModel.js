@@ -8,7 +8,8 @@ DrugModel.getData = (response) => {
 
     let sql = `SELECT drugs.id, 
                       drugs.category_id, 
-                      categories.category_name, 
+                      categories.category_name,
+                      categories.category_color, 
                       drugs.drug_number, 
                       drugs.drug_name, 
                       drugs.drug_stock, 
@@ -147,6 +148,7 @@ DrugModel.getDataById = (response, id) =>{
     let sql = `SELECT drugs.id, 
                       drugs.category_id, 
                       categories.category_name, 
+                      categories.category_color,
                       drugs.drug_number, 
                       drugs.drug_name, 
                       drugs.drug_stock, 

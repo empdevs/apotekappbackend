@@ -16,7 +16,8 @@ database.connect(function(error){
         let sql = `CREATE TABLE categories ( 
             id VARCHAR(36), 
             category_number int NOT NULL AUTO_INCREMENT UNIQUE,
-            category_name VARCHAR(255) NOT NULL UNIQUE, 
+            category_name VARCHAR(255),
+            category_color VARCHAR(255), 
             category_created_at DATETIME, 
             category_created_by VARCHAR(255), 
             category_updated_at DATETIME,

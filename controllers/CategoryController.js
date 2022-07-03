@@ -22,12 +22,13 @@ import Helper from "../utils/Helper.js";
         // data post
         let id = uuidv4();
         let name = req.body.category_name;
+        let color = req.body.category_color;
         let createdBy = req.body.category_created_by;
         let updatedBy = req.body.category_updated_by;
         let timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
     
 
-        if(!name || name === "" || name.match(/^ *$/) !== null){
+        if(!name || name === "" || name.match(/^ *$/) !== null || !color || color.match(/^ *$/) !== null ){
 
             Helper.responseError(res, true, 401, "Please insert category name");
             
@@ -37,6 +38,7 @@ import Helper from "../utils/Helper.js";
 
                 "id" : id,
                 "category_name" : name,
+                "category_color" : color,
                 "category_created_at" : timeNow,
                 "category_created_by" : createdBy,
                 "category_updated_at" : timeNow,
@@ -56,10 +58,11 @@ import Helper from "../utils/Helper.js";
 
         let id = req.params.id;
         let name = req.body.category_name;
+        let color = req.body.category_color;
         let user = req.body.category_updated_by;
         let timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
 
-        if(!name || name === "" || name.match(/^ *$/) !== null){
+        if(!name || name === "" || name.match(/^ *$/) !== null || !color || color.match(/^ *$/) !== null){
 
     
             Helper.responseError(response, true, 401, "Please insert category name");
@@ -71,6 +74,7 @@ import Helper from "../utils/Helper.js";
 
                 "id" : id,
                 "category_name" : name,
+                "category_color" : color,
                 "category_updated_at" : timeNow,
                 "category_updated_by" : user,
             }

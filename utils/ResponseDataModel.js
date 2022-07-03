@@ -6,6 +6,7 @@ export default class ResponseType {
 
             "id" : data.id,
             "category_name" : data.category_name,
+            "category_color" : data.category_color,
             "category_created_at" : data.category_created_at,
             "category_created_by" : data.category_created_by,
             "category_updated_at" : data.category_updated_at,
@@ -23,6 +24,7 @@ export default class ResponseType {
 
             "id" : data.id,
             "category_name" : data.category_name,
+            "category_color" : data.category_color,
             "category_created_at" : data.category_created_at,
             "category_created_by" : data.category_created_by,
             "category_updated_at" : data.category_updated_at,

@@ -12,7 +12,7 @@ database.connect(function(error){
             id VARCHAR(36), 
             category_id VARCHAR(36),
             drug_number int AUTO_INCREMENT UNIQUE,
-            drug_name VARCHAR(255) UNIQUE, 
+            drug_name VARCHAR(255), 
             drug_stock VARCHAR(255),
             drug_price VARCHAR(255),
             drug_benefit VARCHAR(500),

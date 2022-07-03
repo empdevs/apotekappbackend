@@ -8,19 +8,18 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 //check connection database
-try{
-    
-    database.connect(()=>{
+database.connect(function(error){
 
-        console.log("Database connected...");
-
-    });
-
-}catch(error){
+    if(error){
 
         console.log("Database not connected...", error);
+        
+    }else{
 
-}
+        console.log("Database connected...");
+    }
+
+});
 
 // CORS is a mechanism to tell the browser, whether a request that is 
 // dispatched from another web application domain or another origin, to our web application is allowed or not.

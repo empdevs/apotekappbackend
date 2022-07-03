@@ -6,6 +6,7 @@ const CategoryModel = {};
 
     CategoryModel.getData = (response) => {
 
+
         let sql = `SELECT * FROM categories WHERE category_deleted_at IS NULL AND category_deleted_by IS NULL ORDER BY category_number ASC`;
 
         database.query(sql, function(error, result, field){
@@ -68,7 +69,7 @@ const CategoryModel = {};
     //create
     CategoryModel.createData = (response,data) => {
 
-        let sql = `INSERT INTO categories VALUES ('${data.id}','${''}','${data.category_name}','${data.category_created_at}', '${data.category_created_by}', '${data.category_updated_at}', '${data.category_updated_by}', ${null}, ${null})`;
+        let sql = `INSERT INTO categories VALUES ('${data.id}','${''}','${data.category_name}','${data.category_color}','${data.category_created_at}', '${data.category_created_by}', '${data.category_updated_at}', '${data.category_updated_by}', ${null}, ${null})`;
 
         database.query(sql, function(error, result, field){
 
@@ -105,7 +106,7 @@ const CategoryModel = {};
     //update
     CategoryModel.updateData = (response, data) => {
 
-        let sql = `UPDATE categories SET category_name='${data.category_name}',category_updated_at='${data.category_updated_at}', category_updated_by='${data.category_updated_by}' WHERE id = '${data.id}' `;
+        let sql = `UPDATE categories SET category_name='${data.category_name}',category_color='${data.category_color}',category_updated_at='${data.category_updated_at}', category_updated_by='${data.category_updated_by}' WHERE id = '${data.id}' `;
 
         database.query(sql, function(error, result, field){
             
