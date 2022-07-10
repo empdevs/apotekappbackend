@@ -46,7 +46,7 @@ DrugModel.getData = (response) => {
 
 DrugModel.createData = (response, data) => {
 
-    let sql = `INSERT INTO drugs VALUES('${data.id}','${data.category_id}','${''}','${data.drug_name}','${data.drug_stock}','${data.drug_price}','${data.drug_benefit}','${data.drug_picture}','${data.drug_created_at}','${data.drug_created_by}','${data.drug_updated_at}','${data.drug_updated_by}',${null},${null})`;
+    let sql = `INSERT INTO drugs VALUES('${data.id}','${data.category_id}','${''}','${data.drug_name}','${data.drug_stock}','${data.drug_price}','${data.drug_benefit}','${""}','${data.drug_created_at}','${data.drug_created_by}','${data.drug_updated_at}','${data.drug_updated_by}',${null},${null})`;
 
     database.query( sql, function(error, result, field){
 

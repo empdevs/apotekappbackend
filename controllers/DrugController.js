@@ -25,14 +25,13 @@ export function createDrug(req, res){
     let stock = req.body.drug_stock;
     let price = req.body.drug_price;
     let benefit = req.body.drug_benefit;
-    let picture = req.body.drug_picture;
     let createdBy = req.body.drug_created_by;
     let updatedBy = req.body.drug_updated_by;
     let timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
 
-    if((!name || name.match(/^ *$/) !== null)|| (!stock || stock.match(/^ *$/) !== null) || (!price || price.match(/^ *$/) !== null) || (!picture || picture.match(/^ *$/) !== null )){
+    if((!name || name.match(/^ *$/) !== null)|| (!stock || stock <= 0 ) || (!price || price <= 0) || (!categoryId || categoryId.match(/^ *$/) !== null)){
 
-        Helper.responseError(res, true, 401, "Please insert require field");
+        Helper.responseError(res, true, 401, "Please fill in the fields correctly and stock at least one !");
 
     }else{
 
@@ -44,7 +43,6 @@ export function createDrug(req, res){
             "drug_stock" : stock,
             "drug_price" : price,
             "drug_benefit": benefit,
-            "drug_picture" : picture,
             "drug_created_at" : timeNow,
             "drug_created_by" : createdBy,
             "drug_updated_at" : timeNow,
