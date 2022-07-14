@@ -110,5 +110,12 @@ export function deleteDrug(req, res){
     DrugModel.deleteData(res, data);
 }
 
+export function uploadImage(req,res){
+
+    console.log(req);
+
+    // console.log(req.files);
+
+}
 
 
