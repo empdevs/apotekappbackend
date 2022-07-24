@@ -1,5 +1,5 @@
 import express  from "express";
-import { createDrug, getAllDrugs, updateDrug , deleteDrug, getDrugById, uploadImage} from "../controllers/DrugController.js";
+import { createDrug, getAllDrugs, updateDrug , deleteDrug, getDrugById, uploadImage, deleteImage} from "../controllers/DrugController.js";
 import multer from "multer";
 
 const router = express.Router();
@@ -27,6 +27,7 @@ router.post('/', createDrug);
 router.put('/:id/update/', updateDrug);
 router.put('/:id/delete/', deleteDrug);
 router.get('/:id/', getDrugById);
-router.post('/upload/',upload.single('file'), uploadImage);
+router.post('/:id/upload/',upload.single('file'), uploadImage);
+router.put('/:id/images/delete/', deleteImage);
 
 export default router;

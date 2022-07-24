@@ -3,9 +3,15 @@ import database from "./config/Database.js";
 import CategoryRoutes from './routes/CategoryRoutes.js'; 
 import DrugRoutes from './routes/DrugRoutes.js';
 import cors from 'cors';
+import { fileURLToPath } from "url";
+import path from "path";
 
 const app = express();
 const port = process.env.PORT || 5000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
 
 //check connection database
 database.connect(function(error){
@@ -31,6 +37,10 @@ app.use(express.json());
 
 //support parsing of application/x-www-form-urlencoded post data
 app.use(express.urlencoded({extended: true}));
+console.log(__filename);
+console.log(__dirname);
+//static url
+app.use('/static',express.static(path.join(__dirname,'/uploads')));
 
 //Route API
 app.use('/api/category/',CategoryRoutes);

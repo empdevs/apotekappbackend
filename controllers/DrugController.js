@@ -2,6 +2,7 @@ import moment from "moment";
 import { v4 as uuidv4 } from 'uuid'; 
 import DrugModel from "../models/DrugModel.js";
 import Helper from "../utils/Helper.js";
+import fs from 'fs-extra';
 
 export function getAllDrugs(req, res){
 
@@ -68,7 +69,7 @@ export function updateDrug(req, res){
     let updatedBy = req.body.drug_updated_by;
     let timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
 
-    if((!categoryId || categoryId.match(/^ *$/) !== null)  || (!name || name.match(/^ *$/) !== null)|| (!stock || stock.match(/^ *$/) !== null) || (!price || price.match(/^ *$/) !== null) || (!picture || picture.match(/^ *$/) !== null )){
+    if((!categoryId || categoryId.match(/^ *$/) !== null)  || (!name || name.match(/^ *$/) !== null)|| (!stock || stock <= 0 ) || (!price || price <= 0 )){
 
         Helper.responseError(res, true, 401, "Please insert require field");
 
@@ -97,24 +98,101 @@ export function updateDrug(req, res){
 export function deleteDrug(req, res){
 
     let id = req.params.id;
+    let picture = req.body.drug_picture;
     let deletedBy = req.body.drug_deleted_by;
     let timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
 
+    
     let data = {
 
         "id" : id,
+        "drug_picture" : "",
         "drug_deleted_at" : timeNow,
         "drug_deleted_by" : deletedBy,
     }
 
-    DrugModel.deleteData(res, data);
+    if(picture || picture.match(/^ *$/) !== null){
+
+        fs.remove(`uploads/drug_images/${picture}`, function(error){
+
+            if(error){
+
+                console.log(error);
+
+                Helper.responseError(res, true, 401, "Failed delete image");
+
+            }else{
+
+                console.log("Success delete file");
+            
+                DrugModel.deleteData(res, data);
+
+            }
+
+        });
+
+    }else{
+
+    
+        DrugModel.deleteData(res, data);
+
+    }
+
 }
 
 export function uploadImage(req,res){
 
-    console.log(req);
+    let id = req.params.id;
+    let picture = req.file.filename 
+    let timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
+    let updatedBy = "system";
 
-    // console.log(req.files);
+    let data = {
+        "id" : id,
+        "drug_picture" : picture,
+        "drug_updated_at" : timeNow,
+        "drug_updated_by" : updatedBy
+    }
+
+    DrugModel.uploadImage(res,data);
+
+
+}
+
+
+export function deleteImage(req, res){
+
+    let id = req.params.id;
+    let picture = req.body.drug_picture;
+    let updatedBy = req.body.drug_updated_by;
+    let timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
+
+    fs.remove(`uploads/drug_images/${picture}`, function(error){
+
+        if(error){
+
+            console.log(error);
+
+            Helper.responseError(res, true, 401, "Failed delete image");
+
+        }else{
+
+            console.log("Delete file success");
+
+            let data = {
+
+                "id" : id,
+                "drug_picture" : "",
+                "drug_updated_at" : timeNow,
+                "drug_updated_by" : updatedBy,
+    
+            }
+
+            DrugModel.deleteImage(res,data);
+            
+        }
+
+    });
 
 }
 

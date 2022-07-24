@@ -111,10 +111,74 @@ DrugModel.updateData = (response, data) =>{
 
 }
 
+DrugModel.uploadImage = (response, data) => {
+
+    let sql = `UPDATE drugs SET drug_picture='${data.drug_picture}',
+                                drug_updated_at='${data.drug_updated_at}',
+                                drug_updated_by='${data.drug_updated_by}' 
+                                WHERE id = '${data.id}'`;
+
+                database.query(sql, function(error, result, field){
+
+                    if(error){
+
+                        console.log(error);
+
+                        let errorQuery = JSON.stringify(error);
+        
+                        let errorToJson = JSON.parse(errorQuery);
+        
+                        console.log("Failed upload image drugs...");
+        
+                        Helper.responseError(response, true, 401, errorToJson.sqlMessage);
+
+                    }else{
+
+                        console.log("Success upload image drugs...");
+
+                        Helper.responseData(response, true, 201, "Success upload image drugs", {});
+                    }
+
+                });
+
+}
+
+DrugModel.deleteImage = (response, data) => {
+
+    let sql = `UPDATE drugs SET drug_picture='${data.drug_picture}',
+                                drug_updated_at='${data.drug_updated_at}',
+                                drug_updated_by='${data.drug_updated_by}' 
+                                WHERE id = '${data.id}'`;
+
+                database.query(sql, function(error, result, field){
+
+                    if(error){
+
+                        console.log(error);
+
+                        let errorQuery = JSON.stringify(error);
+        
+                        let errorToJson = JSON.parse(errorQuery);
+        
+                        console.log("Failed delete image drugs...");
+        
+                        Helper.responseError(response, true, 401, errorToJson.sqlMessage);
+
+                    }else{
+
+                        console.log("Success delete image drugs...");
+
+                        Helper.responseData(response, true, 201, "Success delete image drugs", {});
+                    }
+
+                });
+
+}
 
 DrugModel.deleteData = (response, data) => {
 
-    let sql = `UPDATE drugs SET drug_deleted_at='${data.drug_deleted_at}',
+    let sql = `UPDATE drugs SET drug_picture='${data.drug_picture}',
+                                drug_deleted_at='${data.drug_deleted_at}',
                                 drug_deleted_by='${data.drug_deleted_by}' 
                                 WHERE id = '${data.id}'`;
 
