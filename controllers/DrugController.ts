@@ -1,34 +1,36 @@
 import moment from "moment";
 import { v4 as uuidv4 } from 'uuid'; 
-import DrugModel from "../models/DrugModel.js";
-import Helper from "../utils/Helper.js";
+import DrugModel from "../models/DrugModel";
+import Helper from "../utils/Helper";
 import fs from 'fs-extra';
+import { Request, Response } from "express";
+import { ICreateDrug, IDeleteDrug, IDeleteImage, IUpdateDrug, IUploadImageDrug } from "../utils/Types";
 
-export function getAllDrugs(req, res){
+export function getAllDrugs(req: Request, res: Response){
 
     DrugModel.getData(res);
 
 }
 
-export function getDrugById(req, res){
+export function getDrugById(req: Request, res: Response){
 
-    let id = req.params.id
+    let id : string = req.params.id
 
     DrugModel.getDataById(res,id);
 
 }
 
-export function createDrug(req, res){
+export function createDrug(req: Request, res: Response){
    
-    let id = uuidv4();
-    let categoryId = req.body.category_id;
-    let name = req.body.drug_name;
-    let stock = req.body.drug_stock;
-    let price = req.body.drug_price;
-    let benefit = req.body.drug_benefit;
-    let createdBy = req.body.drug_created_by;
-    let updatedBy = req.body.drug_updated_by;
-    let timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
+    let id : string = uuidv4();
+    let categoryId : string = req.body.category_id;
+    let name : string = req.body.drug_name;
+    let stock : number = req.body.drug_stock;
+    let price : number = req.body.drug_price;
+    let benefit : string = req.body.drug_benefit;
+    let createdBy : string = req.body.drug_created_by;
+    let updatedBy : string = req.body.drug_updated_by;
+    let timeNow : string = moment().format("YYYY-MM-DD hh:mm:ss");
 
     if((!name || name.match(/^ *$/) !== null)|| (!stock || stock <= 0 ) || (!price || price <= 0) || (!categoryId || categoryId.match(/^ *$/) !== null)){
 
@@ -36,7 +38,7 @@ export function createDrug(req, res){
 
     }else{
 
-        let data = {
+        let data : ICreateDrug = {
 
             "id" : id,
             "category_id" : categoryId,
@@ -57,16 +59,16 @@ export function createDrug(req, res){
 
 }
 
-export function updateDrug(req, res){
+export function updateDrug(req: Request, res: Response){
 
-    let id = req.params.id;
-    let categoryId = req.body.category_id;
-    let name = req.body.drug_name;
-    let stock = req.body.drug_stock;
-    let price = req.body.drug_price;
-    let benefit = req.body.drug_benefit;
-    let picture = req.body.drug_picture;
-    let updatedBy = req.body.drug_updated_by;
+    let id : string = req.params.id;
+    let categoryId : string = req.body.category_id;
+    let name : string = req.body.drug_name;
+    let stock : number = req.body.drug_stock;
+    let price : number = req.body.drug_price;
+    let benefit : string = req.body.drug_benefit;
+    let picture : string = req.body.drug_picture;
+    let updatedBy : string = req.body.drug_updated_by;
     let timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
 
     if((!categoryId || categoryId.match(/^ *$/) !== null)  || (!name || name.match(/^ *$/) !== null)|| (!stock || stock <= 0 ) || (!price || price <= 0 )){
@@ -75,7 +77,7 @@ export function updateDrug(req, res){
 
     }else{
 
-        let data = {
+        let data : IUpdateDrug = {
 
             "id" : id,
             "category_id" : categoryId,
@@ -95,15 +97,15 @@ export function updateDrug(req, res){
 
 }
 
-export function deleteDrug(req, res){
+export function deleteDrug(req: Request, res: Response){
 
-    let id = req.params.id;
-    let picture = req.body.drug_picture;
-    let deletedBy = req.body.drug_deleted_by;
-    let timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
+    let id : string = req.params.id;
+    let picture : string = req.body.drug_picture;
+    let deletedBy : string = req.body.drug_deleted_by;
+    let timeNow : string = moment().format("YYYY-MM-DD hh:mm:ss");
 
     
-    let data = {
+    let data : IDeleteDrug = {
 
         "id" : id,
         "drug_picture" : "",
@@ -113,7 +115,7 @@ export function deleteDrug(req, res){
 
     if(picture || picture.match(/^ *$/) !== null){
 
-        fs.remove(`uploads/drug_images/${picture}`, function(error){
+        fs.remove(`uploads/drug_images/${picture}`, function(error: Error){
 
             if(error){
 
@@ -140,14 +142,14 @@ export function deleteDrug(req, res){
 
 }
 
-export function uploadImage(req,res){
+export function uploadImage(req: Request, res: Response){
 
-    let id = req.params.id;
-    let picture = req.file.filename 
-    let timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
-    let updatedBy = "system";
+    let id : string = req.params.id;
+    let picture : any = req.file?.filename; 
+    let timeNow : string = moment().format("YYYY-MM-DD hh:mm:ss");
+    let updatedBy : string = "system";
 
-    let data = {
+    let data : IUploadImageDrug = {
         "id" : id,
         "drug_picture" : picture,
         "drug_updated_at" : timeNow,
@@ -160,14 +162,14 @@ export function uploadImage(req,res){
 }
 
 
-export function deleteImage(req, res){
+export function deleteImage(req: Request, res: Response){
 
-    let id = req.params.id;
-    let picture = req.body.drug_picture;
-    let updatedBy = req.body.drug_updated_by;
-    let timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
+    let id : string = req.params.id;
+    let picture : string = req.body.drug_picture;
+    let updatedBy : string = req.body.drug_updated_by;
+    let timeNow : string = moment().format("YYYY-MM-DD hh:mm:ss");
 
-    fs.remove(`uploads/drug_images/${picture}`, function(error){
+    fs.remove(`uploads/drug_images/${picture}`, function(error: Error){
 
         if(error){
 
@@ -179,7 +181,7 @@ export function deleteImage(req, res){
 
             console.log("Delete file success");
 
-            let data = {
+            let data : IDeleteImage = {
 
                 "id" : id,
                 "drug_picture" : "",

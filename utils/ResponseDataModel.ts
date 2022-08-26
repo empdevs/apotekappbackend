@@ -1,6 +1,8 @@
+import { ICreateCategory } from "./Types"
+
 export default class ResponseType {
 
-    static createCategory(data){
+    static createCategory(data: ICreateCategory){
 
         return {
 
@@ -18,7 +20,7 @@ export default class ResponseType {
 
     }
 
-    static updateCategory(data){
+    static updateCategory(data: ICreateCategory){
 
         return {
 
@@ -36,7 +38,7 @@ export default class ResponseType {
 
     }
 
-    static createDrug(data){
+    static createDrug(data: any){
 
         return {
 
@@ -50,13 +52,13 @@ export default class ResponseType {
             "drug_created_at" : data.drug_created_at,
             "drug_created_by" : data.drug_created_by,
             "drug_updated_at" : data.drug_updated_at,
-            "drug_updated_at" : data.drug_updated_at,
+            "drug_updated_by" : data.drug_updated_by,
             "drug_deleted_at" : null,
             "drug_deleted_by" : null,
         }
 
     }
-    static updateDrug(data){
+    static updateDrug(data: any){
 
         return {
 
@@ -70,7 +72,7 @@ export default class ResponseType {
             "drug_created_at" : data.drug_created_at,
             "drug_created_by" : data.drug_created_by,
             "drug_updated_at" : data.drug_updated_at,
-            "drug_updated_at" : data.drug_updated_at,
+            "drug_updated_by" : data.drug_updated_by,
             "drug_deleted_at" : null,
             "drug_deleted_by" : null,
         }

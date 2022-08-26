@@ -1,15 +1,13 @@
-import dotenv from 'dotenv';
-import mysql from 'mysql';
+import mysql, { Connection } from 'mysql';
+import "dotenv/config";
 
-dotenv.config();
+const database : Connection = mysql.createConnection({
 
-const database = mysql.createConnection({
-
-        host : process.env.DB_HOST || "localhost",
-        user : process.env.DB_USER || "root",
+        host : process.env.DB_HOST,
+        user : process.env.DB_USER,
         password: "",
-        database: process.env.DB_NAME || "apotek",
-        port: process.env.DB_PORT || 3308
+        database: process.env.DB_NAME,
+        port: Number(process.env.DB_PORT)
 
 });
 

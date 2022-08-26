@@ -1,13 +1,15 @@
+import { Response } from "express";
+
 export default class Helper {
 
-        static responseData(response, statusSuccess , statusCode, message ,data){
+        static responseData(response: Response, statusSuccess: boolean , statusCode: number, message: string ,data: any){
 
-            let dataResponse = {
+            let dataResponse : {success: boolean, status: number, message: string, data: any} = {
 
                 "success": statusSuccess,
                 "status": statusCode,
                 "message": message,
-                "data": data 
+                "data": data, 
 
             }
 
@@ -15,9 +17,9 @@ export default class Helper {
            
         };
 
-        static responseError(response, statusError, statusCode, message){
+        static responseError(response: Response, statusError: boolean, statusCode: number, message: any){
 
-            let dataResponse = {
+            let dataResponse : {error: any, status: number, message: any} = {
 
                 "error": statusError,
                 "status": statusCode,

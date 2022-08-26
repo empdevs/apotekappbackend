@@ -1,16 +1,16 @@
 import express  from "express";
-import { createDrug, getAllDrugs, updateDrug , deleteDrug, getDrugById, uploadImage, deleteImage} from "../controllers/DrugController.js";
+import { createDrug, getAllDrugs, updateDrug , deleteDrug, getDrugById, uploadImage, deleteImage} from "../controllers/DrugController";
 import multer from "multer";
 
 const router = express.Router();
 
 //storage file
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
+    destination: function (req: any, file: any, cb: any) {
         // console.log(req, file, cb);
       cb(null, "uploads/drug_images/");
     },
-    filename: function (req, file, cb) {
+    filename: function (req: any, file: any, cb: any) {
         // console.log(file);
         let fileNameOriginal = file.originalname;
         let extFile = fileNameOriginal.split(".").pop();

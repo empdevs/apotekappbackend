@@ -1,7 +1,7 @@
-import express from "express";
-import { getAllCategories , createCategory, updateCategory, deleteCategory, getCategoryById } from "../controllers/CategoryController.js";
+import express, { Router } from "express";
+import { getAllCategories , createCategory, updateCategory, deleteCategory, getCategoryById } from "../controllers/CategoryController";
 
-const router = express.Router();
+const router : Router = express.Router();
 
 // routing api after /api/category/
 router.get('/', getAllCategories);

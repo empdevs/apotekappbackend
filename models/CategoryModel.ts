@@ -1,15 +1,17 @@
-import database from "../config/Database.js";
-import Helper from "../utils/Helper.js";
-import ResponseDataModel from "../utils/ResponseDataModel.js";
+import database from "../config/Database";
+import Helper from "../utils/Helper";
+import ResponseDataModel from "../utils/ResponseDataModel";
+import { Response } from "express"; 
+import { ICreateCategory, IDeleteCategory, IUpdateCategory } from "../utils/Types";
 
-const CategoryModel = {};
+const CategoryModel : any = {};
 
-    CategoryModel.getData = (response) => {
+    CategoryModel.getData = (response: Response) => {
 
 
-        let sql = `SELECT * FROM categories WHERE category_deleted_at IS NULL AND category_deleted_by IS NULL ORDER BY category_number ASC`;
+        let sql : string = `SELECT * FROM categories WHERE category_deleted_at IS NULL AND category_deleted_by IS NULL ORDER BY category_number ASC`;
 
-        database.query(sql, function(error, result, field){
+        database.query(sql, function(error: Error, result: any, field: any){
 
             if(error){
 
@@ -31,11 +33,11 @@ const CategoryModel = {};
 
     };
 
-    CategoryModel.getDataById = (response, id) => {
+    CategoryModel.getDataById = (response: Response, id: string) => {
 
-        let sql = `SELECT * FROM categories WHERE id='${id}' AND category_deleted_at IS NULL AND category_deleted_by IS NULL`;
+        let sql : string = `SELECT * FROM categories WHERE id='${id}' AND category_deleted_at IS NULL AND category_deleted_by IS NULL`;
 
-        database.query(sql, function(error, result, field){
+        database.query(sql, function(error: Error, result: any, field: any){
 
 
             if(error){
@@ -67,11 +69,12 @@ const CategoryModel = {};
     };
 
     //create
-    CategoryModel.createData = (response,data) => {
+    CategoryModel.createData = (response: Response, data: ICreateCategory ) => {
 
-        let sql = `INSERT INTO categories VALUES ('${data.id}','${''}','${data.category_name}','${data.category_color}','${data.category_created_at}', '${data.category_created_by}', '${data.category_updated_at}', '${data.category_updated_by}', ${null}, ${null})`;
+        let sql : string = `INSERT INTO categories VALUES ('${data.id}','${''}','${data.category_name}','${data.category_color}','${data.category_created_at}', '${data.category_created_by}', '${data.category_updated_at}', '${data.category_updated_by}', ${null}, ${null})`;
 
-        database.query(sql, function(error, result, field){
+
+        database.query(sql, function(error: Error, result: any, field: any){
 
 
             if(error){
@@ -104,11 +107,11 @@ const CategoryModel = {};
     }; 
 
     //update
-    CategoryModel.updateData = (response, data) => {
+    CategoryModel.updateData = (response: Response, data: IUpdateCategory) => {
 
-        let sql = `UPDATE categories SET category_name='${data.category_name}',category_color='${data.category_color}',category_updated_at='${data.category_updated_at}', category_updated_by='${data.category_updated_by}' WHERE id = '${data.id}' `;
+        let sql : string = `UPDATE categories SET category_name='${data.category_name}',category_color='${data.category_color}',category_updated_at='${data.category_updated_at}', category_updated_by='${data.category_updated_by}' WHERE id = '${data.id}' `;
 
-        database.query(sql, function(error, result, field){
+        database.query(sql, function(error: Error, result: any, field: any){
             
         
             if(error){
@@ -137,11 +140,11 @@ const CategoryModel = {};
     }
 
     // delete
-    CategoryModel.deleteData = (response, data) => {
+    CategoryModel.deleteData = (response: Response, data: IDeleteCategory) => {
 
-        let sql = `UPDATE categories SET category_deleted_at='${data.category_deleted_at}', category_deleted_by='${data.category_deleted_by}' WHERE id = '${data.id}' `;
+        let sql : string = `UPDATE categories SET category_deleted_at='${data.category_deleted_at}', category_deleted_by='${data.category_deleted_by}' WHERE id = '${data.id}' `;
 
-        database.query(sql, function(error, result, field){
+        database.query(sql, function(error: Response, result: any, field: any){
             
 
             if(error){
@@ -173,4 +176,4 @@ const CategoryModel = {};
 
 
 
-export default CategoryModel
+export default CategoryModel;

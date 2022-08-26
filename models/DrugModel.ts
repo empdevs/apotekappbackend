@@ -1,12 +1,14 @@
-import database from "../config/Database.js";
-import Helper from "../utils/Helper.js";
-import ResponseType from "../utils/ResponseDataModel.js";
+import { Response } from "express";
+import database from "../config/Database";
+import Helper from "../utils/Helper";
+import ResponseType from "../utils/ResponseDataModel";
+import { ICreateDrug, IDeleteDrug, IDeleteImage, IUpdateDrug, IUploadImageDrug } from "../utils/Types";
 
-const DrugModel = {};
+const DrugModel : any = {};
 
-DrugModel.getData = (response) => {
+DrugModel.getData = (response: Response) => {
 
-    let sql = `SELECT drugs.id, 
+    let sql : string = `SELECT drugs.id, 
                       drugs.category_id, 
                       categories.category_name,
                       categories.category_color, 
@@ -23,11 +25,10 @@ DrugModel.getData = (response) => {
                       FROM drugs INNER JOIN categories ON drugs.category_id=categories.id
                       WHERE drug_deleted_at IS NULL AND drug_deleted_by IS NULL ORDER BY drug_number ASC`;
 
-    database.query(sql , function(error, result, field){
+    database.query(sql , function(error: Error, result: any, field: any){
 
         if(error){
-
-            
+  
             console.log(error);
 
             console.log("Failed get data drugs...");
@@ -44,11 +45,11 @@ DrugModel.getData = (response) => {
     });
 }
 
-DrugModel.createData = (response, data) => {
+DrugModel.createData = (response: Response, data: ICreateDrug) => {
 
-    let sql = `INSERT INTO drugs VALUES('${data.id}','${data.category_id}','${''}','${data.drug_name}','${data.drug_stock}','${data.drug_price}','${data.drug_benefit}','${""}','${data.drug_created_at}','${data.drug_created_by}','${data.drug_updated_at}','${data.drug_updated_by}',${null},${null})`;
+    let sql : string = `INSERT INTO drugs VALUES('${data.id}','${data.category_id}','${''}','${data.drug_name}','${data.drug_stock}','${data.drug_price}','${data.drug_benefit}','${""}','${data.drug_created_at}','${data.drug_created_by}','${data.drug_updated_at}','${data.drug_updated_by}',${null},${null})`;
 
-    database.query( sql, function(error, result, field){
+    database.query( sql, function(error: Error, result: any, field: any){
 
         if(error){
 
@@ -72,9 +73,9 @@ DrugModel.createData = (response, data) => {
 
 }
 
-DrugModel.updateData = (response, data) =>{
+DrugModel.updateData = (response: Response, data: IUpdateDrug) =>{
 
-    let sql = `UPDATE drugs SET category_id='${data.category_id}', 
+    let sql : string = `UPDATE drugs SET category_id='${data.category_id}', 
                                 drug_name='${data.drug_name}', 
                                 drug_stock='${data.drug_stock}', 
                                 drug_price='${data.drug_price}', 
@@ -84,7 +85,7 @@ DrugModel.updateData = (response, data) =>{
                                 drug_updated_by='${data.drug_updated_by}'
                                 WHERE id = '${data.id}'`;
 
-        database.query(sql, function(error, result, field){
+        database.query(sql, function(error: Error, result: any, field: any){
 
             if(error){
 
@@ -111,14 +112,14 @@ DrugModel.updateData = (response, data) =>{
 
 }
 
-DrugModel.uploadImage = (response, data) => {
+DrugModel.uploadImage = (response: Response, data: IUploadImageDrug) => {
 
-    let sql = `UPDATE drugs SET drug_picture='${data.drug_picture}',
+    let sql : string = `UPDATE drugs SET drug_picture='${data.drug_picture}',
                                 drug_updated_at='${data.drug_updated_at}',
                                 drug_updated_by='${data.drug_updated_by}' 
                                 WHERE id = '${data.id}'`;
 
-                database.query(sql, function(error, result, field){
+                database.query(sql, function(error: Error, result: string, field: string){
 
                     if(error){
 
@@ -143,14 +144,14 @@ DrugModel.uploadImage = (response, data) => {
 
 }
 
-DrugModel.deleteImage = (response, data) => {
+DrugModel.deleteImage = (response: Response, data: IDeleteImage) => {
 
-    let sql = `UPDATE drugs SET drug_picture='${data.drug_picture}',
+    let sql : string = `UPDATE drugs SET drug_picture='${data.drug_picture}',
                                 drug_updated_at='${data.drug_updated_at}',
                                 drug_updated_by='${data.drug_updated_by}' 
                                 WHERE id = '${data.id}'`;
 
-                database.query(sql, function(error, result, field){
+                database.query(sql, function(error: Error, result: any, field: any){
 
                     if(error){
 
@@ -175,14 +176,14 @@ DrugModel.deleteImage = (response, data) => {
 
 }
 
-DrugModel.deleteData = (response, data) => {
+DrugModel.deleteData = (response: Response, data: IDeleteDrug) => {
 
     let sql = `UPDATE drugs SET drug_picture='${data.drug_picture}',
                                 drug_deleted_at='${data.drug_deleted_at}',
                                 drug_deleted_by='${data.drug_deleted_by}' 
                                 WHERE id = '${data.id}'`;
 
-                database.query(sql, function(error, result, field){
+                database.query(sql, function(error: Error, result: any, field: any){
 
                     if(error){
 
@@ -207,9 +208,9 @@ DrugModel.deleteData = (response, data) => {
 
 }   
 
-DrugModel.getDataById = (response, id) =>{
+DrugModel.getDataById = (response: Response, id: string) =>{
 
-    let sql = `SELECT drugs.id, 
+    let sql : string = `SELECT drugs.id, 
                       drugs.category_id, 
                       categories.category_name, 
                       categories.category_color,
@@ -226,7 +227,7 @@ DrugModel.getDataById = (response, id) =>{
                       FROM drugs INNER JOIN categories ON drugs.category_id=categories.id 
                       WHERE drugs.id='${id}' AND drug_deleted_at IS NULL AND drug_deleted_by IS NULL`;
 
-        database.query(sql, function(error, result, field){
+        database.query(sql, function(error: Error, result: any, field: any){
 
             if(error){
 

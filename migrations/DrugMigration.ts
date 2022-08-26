@@ -1,4 +1,4 @@
-import database from "../config/Database.js";
+import database from "../config/Database";
 
 database.connect(function(error){
     

@@ -1,7 +1,7 @@
-import database from "../config/Database.js";
+import database from "../config/Database";
 
 //create table category
-database.connect(function(error){
+database.connect(function(error: Error){
 
     console.log(error);
 
@@ -13,7 +13,7 @@ database.connect(function(error){
 
     }else{
 
-        let sql = `CREATE TABLE categories ( 
+        let sql : string = `CREATE TABLE categories ( 
             id VARCHAR(36), 
             category_number int NOT NULL AUTO_INCREMENT UNIQUE,
             category_name VARCHAR(255),
@@ -27,7 +27,7 @@ database.connect(function(error){
             PRIMARY KEY (id)
         )`;
 
-        database.query(sql, function(error, result){
+        database.query(sql, function(error: Error, result: any){
 
             if(error){
 
