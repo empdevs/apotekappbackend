@@ -1,6 +1,7 @@
 import database from "../config/Database";
+import "dotenv/config";
 
-database.connect(function(error){
+database.connect(function(error: Error){
     
     if(error){
 

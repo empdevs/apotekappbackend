@@ -4,6 +4,7 @@ import CategoryRoutes from './routes/CategoryRoutes';
 import DrugRoutes from './routes/DrugRoutes';
 import cors from 'cors';
 import path from "path";
+import RoleRoutes from './routes/RoleRoutes';
 
 const app = express();
 const port = process.env.PORT;
@@ -40,6 +41,7 @@ app.use('/static',express.static(path.join(__dirname,'/uploads')));
 //Route API
 app.use('/api/category/',CategoryRoutes);
 app.use('/api/drug/',DrugRoutes);
+app.use('/api/role/', RoleRoutes);
 
 //server running
 app.listen(port,()=>{

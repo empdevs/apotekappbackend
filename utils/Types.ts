@@ -28,6 +28,7 @@ export interface ICreateDrug {
     drug_stock : number,
     drug_price : number,
     drug_benefit: string,
+    drug_picture?: string,
     drug_created_at : string,
     drug_created_by : string,
     drug_updated_at : string,
@@ -67,4 +68,28 @@ export interface IDeleteImage {
     drug_picture : string,
     drug_updated_at : string,
     drug_updated_by : string,
+}
+
+export interface ICreateRole {
+
+    id: string,
+    role_name: string,
+    role_created_at : string,
+    role_created_by : string,
+    role_updated_at : string,
+    role_updated_by : string,
+}
+
+export interface IUpdateRole {
+    
+    id:string,
+    role_name: string,
+    role_updated_at : string,
+    role_updated_by : string,
+}
+export interface IDeleteRole {
+    
+    id : string,
+    role_deleted_by : string,
+    role_deleted_at : string 
 }

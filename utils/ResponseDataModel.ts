@@ -1,4 +1,4 @@
-import { ICreateCategory } from "./Types"
+import { ICreateCategory, ICreateDrug, ICreateRole, IUpdateDrug, IUpdateRole } from "./Types"
 
 export default class ResponseType {
 
@@ -38,7 +38,7 @@ export default class ResponseType {
 
     }
 
-    static createDrug(data: any){
+    static createDrug(data: ICreateDrug){
 
         return {
 
@@ -58,7 +58,7 @@ export default class ResponseType {
         }
 
     }
-    static updateDrug(data: any){
+    static updateDrug(data: IUpdateDrug){
 
         return {
 
@@ -69,12 +69,40 @@ export default class ResponseType {
             "drug_price" : data.drug_price,
             "drug_benefit" : data.drug_benefit,
             "drug_picture" : data.drug_picture,
-            "drug_created_at" : data.drug_created_at,
-            "drug_created_by" : data.drug_created_by,
             "drug_updated_at" : data.drug_updated_at,
             "drug_updated_by" : data.drug_updated_by,
             "drug_deleted_at" : null,
             "drug_deleted_by" : null,
+        }
+
+    }
+    static createRole(data: ICreateRole){
+
+        return {
+
+            "id" : data.id,
+            "role_name" : data.role_name,
+            "role_created_at" : data.role_created_at,
+            "role_created_by" : data.role_created_by,
+            "role_updated_at" : data.role_updated_at,
+            "role_updated_by" : data.role_updated_by,
+            "role_deleted_at" : null,
+            "role_deleted_by" : null,
+
+        }
+
+    }
+    static updateRole(data: IUpdateRole){
+
+        return {
+
+            "id" : data.id,
+            "role_name" : data.role_name,
+            "role_updated_at" : data.role_updated_at,
+            "role_updated_by" : data.role_updated_by,
+            "role_deleted_at" : null,
+            "role_deleted_by" : null,
+
         }
 
     }

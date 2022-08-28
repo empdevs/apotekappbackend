@@ -1,4 +1,5 @@
 import database from "../config/Database";
+import "dotenv/config";
 
 //create table category
 database.connect(function(error: Error){
