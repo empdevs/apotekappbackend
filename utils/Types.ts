@@ -1,11 +1,11 @@
 export interface ICreateCategory {
-    id : string,
-    category_name : string,
-    category_color : string,
-    category_created_at : string,
-    category_created_by : string,
-    category_updated_at : string,
-    category_updated_by : string,
+    id:string,
+    category_name:string,
+    category_color:string,
+    category_created_at:string,
+    category_created_by:string,
+    category_updated_at:string,
+    category_updated_by:string,
 }
 
 export interface IUpdateCategory {
@@ -92,4 +92,17 @@ export interface IDeleteRole {
     id : string,
     role_deleted_by : string,
     role_deleted_at : string 
+}
+
+export interface ICreateUser {
+    id:string,
+    user_name:string,
+    user_email:string,
+    user_phone:number,
+    user_password:string,
+    user_created_by:string,
+    user_created_at:string,
+    user_updated_at:string,
+    user_updated_by:string
+    user_roles:any[],
 }

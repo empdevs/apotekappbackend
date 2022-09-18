@@ -2,6 +2,7 @@ import express from "express";
 import database from "./config/Database";
 import CategoryRoutes from './routes/CategoryRoutes'; 
 import DrugRoutes from './routes/DrugRoutes';
+import UserRoutes from './routes/UserRoutes';
 import cors from 'cors';
 import path from "path";
 import RoleRoutes from './routes/RoleRoutes';
@@ -42,6 +43,7 @@ app.use('/static',express.static(path.join(__dirname,'/uploads')));
 app.use('/api/category/',CategoryRoutes);
 app.use('/api/drug/',DrugRoutes);
 app.use('/api/role/', RoleRoutes);
+app.use('/api/user/', UserRoutes);
 
 //server running
 app.listen(port,()=>{
