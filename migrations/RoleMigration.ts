@@ -17,7 +17,8 @@ database.connect(function(error: Error){
                                                 role_updated_at DATETIME,
                                                 role_updated_by VARCHAR(255), 
                                                 role_deleted_at DATETIME, 
-                                                role_deleted_by VARCHAR(255)
+                                                role_deleted_by VARCHAR(255),
+                                                PRIMARY KEY (id)
                                                 )`;
         database.query(sql, function(error: Error, result: any){
 
